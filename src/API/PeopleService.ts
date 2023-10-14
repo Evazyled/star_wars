@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export default class GetPeople {
+export default class People {
   static async getAll() {
     try {
-      const response = await axios.get("https://swapi.dev/api/people/");
+      const response = await axios.get("https://swapi.dev/api/people");
 
       return response.data;
     } catch (error: any) {
@@ -11,9 +11,9 @@ export default class GetPeople {
       return false;
     }
   }
-  static async getById() {
+  static async getById(id: string) {
     try {
-      const response = await axios.get("https://swapi.dev/api/people/1");
+      const response = await axios.get("https://swapi.dev/api/people/" + id);
 
       return response.data;
     } catch (error: any) {

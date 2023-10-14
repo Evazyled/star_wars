@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import GetPeople from "../../API/PeopleService";
-
+import People from "../../API/PeopleService";
+import { IPeople } from "../../types/types";
+import { Link } from "react-router-dom";
 const PeoplePage = () => {
   const [people, setPeople] = useState<any>(null);
   const fetch = async () => {
-    const res = await GetPeople.getById();
-    setPeople(res);
+    const res = await People.getAll();
+    setPeople(res.results);
     console.log(res);
   };
   useEffect(() => {
@@ -16,9 +17,16 @@ const PeoplePage = () => {
       {!people ? (
         <h1>loading</h1>
       ) : (
-        <h2>
-          {people.name} : {people.height}
-        </h2>
+        people.map((el: IPeople) => {
+          return (
+            <>
+              <h2 key={el.name}>{el.name}</h2>
+              <Link to={el.url}>
+                <h3>{el.url}</h3>
+              </Link>
+            </>
+          );
+        })
       )}
     </>
   );
